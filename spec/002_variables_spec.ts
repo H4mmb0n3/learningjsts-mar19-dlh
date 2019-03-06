@@ -62,4 +62,55 @@ describe('variables and constants', () => {
             expect(oldEnough).toBe(true);
         });
     });
+
+    describe('literals', () => {
+        it('has numeric literals', () => {
+            let first = 10;
+            let second = 3.12;
+            let salary = 10_001_800; //_ is a comma
+            let hexNumber = 0xff;
+            let binary = 0b101010;
+            let octal = 0o744;
+        });
+
+        it('has string literals', () => {
+            let firstString = 'hello';
+            expect(firstString).toBe("hello");
+
+            let story = 'He said "oh my gosh"';
+            let author = "Flanner O'Connel";
+
+            expect("hi").toBe(`hi`);
+
+            let lifestory = `It all happened so quickly.
+            
+            There I was in a coozy room, then I wasn't... Weird
+            
+            the end.`;
+
+            let name = "Steve", age = 29;
+
+            let info = `His name is ${name} and his age is ${age}.`;
+            console.log(info);
+        });
+
+        it('has array literals', () => {
+            const things = [];
+            things[0] = 'hello';
+            things[1] = 42;
+            things[666] = 'you are evil!';
+            things[777] = ['Dog', 'Cat', 'Turtle'];
+            things[999] = things;
+
+            expect(things[2]).toBeUndefined();
+
+            const luckyNumber: Array<number | string> = [];
+            const friends: (number | string)[] = [];
+            friends[0] = 'Jeff';
+            friends[1] = 'Leroy';
+            friends[2] = 42;
+
+        });
+    });
+
 });
