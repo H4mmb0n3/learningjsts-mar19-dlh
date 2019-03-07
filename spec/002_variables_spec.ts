@@ -84,14 +84,14 @@ describe('variables and constants', () => {
 
             let lifestory = `It all happened so quickly.
             
-            There I was in a coozy room, then I wasn't... Weird
+            There I was in a cozy room, then I wasn't... Weird
             
             the end.`;
 
             let name = "Steve", age = 29;
 
             let info = `His name is ${name} and his age is ${age}.`;
-            console.log(info);
+            //console.log(info);
         });
 
         it('has array literals', () => {
@@ -111,6 +111,77 @@ describe('variables and constants', () => {
             friends[2] = 42;
 
         });
-    });
 
+        describe('tuples', () => {
+            it('making the case', () => {
+                // Not using tuples
+                function add(a: number, b: number): number {
+                    return a + b;
+                }
+
+                interface NameFormattingResult { fullName: string, numberOfLetters: number };
+                function formatName(first: string, last: string): NameFormattingResult {
+                    const fullName = `${last}, ${first}`;
+
+                    return {
+                        fullName: fullName,
+                        numberOfLetters: fullName.length
+                    }
+                }
+
+                const result = formatName('Han', 'Solo');
+                expect(result.fullName).toBe('Solo, Han');
+                expect(result.numberOfLetters).toBe(9);
+
+            });
+
+            it('the syntax', () => {
+                let warren: [string, string, number];
+                warren = ['Warren', 'Ellis', 56];
+
+                // let first = warren[0];
+                // let age = warren[2];
+
+                let [first, , age] = warren; // like above but differnt way to write it.
+
+                expect(first).toBe('Warren');
+                expect(age).toBe(56);
+            });
+
+            it('using a tuple', () => {
+                function formatNameTuple(first: string, last: string): [string, number] {
+                    const fullName = `${last}, ${first}`;
+
+                    return [fullName, fullName.length];
+                }
+
+                const [formattedName, nameLength] = formatNameTuple('Neil', 'Gaiman');
+
+                console.log(`"${formattedName}" is ${nameLength} characters long`);
+
+                expect(formattedName).toBe('Gaiman, Neil');
+                expect(nameLength).toBe(12);
+            });
+
+            it('using destructuring on an array', () => {
+                const friends = ['Reggie', 'Susan', 'Neil'];
+                const [first, , last] = friends;
+
+                expect(first).toBe('Reggie');
+
+                const [firstFriend, ...restOfMyFriends] = friends;
+                console.log(`First Friend: ${firstFriend}`);
+                console.log(`rest ${restOfMyFriends}`);
+                expect(firstFriend).toBe('Reggie');
+                expect(restOfMyFriends).toEqual(['Susan', 'Neil']);
+            });
+
+            it('using the spread operator', () => {
+                const friends = ['Susan', 'Neil'];
+                const newFriends = ['Reggie', ...friends];
+                console.log(newFriends);
+                expect(newFriends).toEqual(['Reggie', 'Susan', 'Neil']);
+            });
+        });
+    });
 });
