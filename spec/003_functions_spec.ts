@@ -80,4 +80,8 @@ describe('functions', () => {
             // }
         });
     });
+
+    describe('array methods', () => {
+
+    });
 });
