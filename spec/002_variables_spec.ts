@@ -184,4 +184,73 @@ describe('variables and constants', () => {
             });
         });
     });
+
+    describe('object and destructuring of objects', () => {
+        describe('object literals', () => {
+            interface Movie { title: string, director: string }; // good for intelisense and to not mess up
+
+            // this is an object literal with an annoymous interface in JS
+            const movie1: Movie = {
+                title: 'The Last Jedi',
+                director: 'Rian Johnson'
+            };
+
+            const movie2: Movie = {
+                title: 'Thor Ragnorak',
+                director: 'Taika Waititi'
+            };
+
+            it('duck typing', () => {
+                interface PhoneCallType {
+                    message: string
+                    from?: string
+                };
+
+                function doIt(thing: PhoneCallType) {
+                    console.log(thing.message);
+                }
+
+                // These are valid JavaScript but not valid TypeScript
+                // doIt("Tacos");
+                // doIt();
+                // doIt({ message: 'Call your mom' }, 1, 2, 3);
+                doIt({ message: 'Call your mom' });
+
+                const phoneCall = {
+                    from: 'Jenny',
+                    when: 'noon',
+                    callBackNumber: '867-5309',
+                    message: 'Pay me!'
+                };
+
+                doIt(phoneCall); //This works because PhoneCall is just wanting a message.
+
+                class PhoneCall implements PhoneCallType {
+                    //adding scope to inputs makes them a property
+                    // by default inputs are locally scoped
+                    constructor(public message: string, public from: string, private when: string) { }
+
+                    getInfo() {
+                        return `Call from ${this.from}. Message ${this.message} at ${this.when}.`;
+                    }
+                }
+
+                const pc1 = new PhoneCall('Wash Car', 'Martin', 'noon');
+                console.log(pc1.getInfo());
+
+                doIt(pc1);
+
+                const pc2: PhoneCallType = {
+                    message: 'pick up milk',
+                    from: 'Deeds'
+                };
+
+                //Object destructuring
+                const { from, message: msg } = pc2;
+
+                expect(from).toBe('Deeds');
+                expect(msg).toBe('pick up milk');
+            });
+        });
+    });
 });
