@@ -82,6 +82,57 @@ describe('functions', () => {
     });
 
     describe('array methods', () => {
+        const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
+        it('taking a look at every member of an array', () => {
+            numbers.forEach((number) => console.log(`Numbers array: ${number}`));
+        });
+
+        describe('methods that return new arrays', () => {
+            it('has a filter', () => {
+                const evens = numbers.filter(formatters.isEven);
+                expect(evens).toEqual([2, 4, 6, 8]);
+                expect(numbers).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+            });
+
+            it('map', () => {
+
+
+                const doubled = numbers.map(n => n * 2);
+
+                expect(doubled).toEqual([2, 4, 6, 8, 10, 12, 14, 16, 18]);
+            });
+
+            it('do a practice', () => {
+                interface Vehicle {
+                    vin: string;
+                    makeAndModel: string;
+                    mileage: number;
+                }
+                const vehicles: Vehicle[] = [
+                    { vin: '9999', makeAndModel: 'Chevy Tahoe', mileage: 182000 },
+                    { vin: 'aka92', makeAndModel: 'Toyota Prius', mileage: 89999 },
+                    { vin: 'kduwi', makeAndModel: 'Ford Explorer', mileage: 99998 }
+                ];
+
+                const lowMileageVehicles = vehicles
+                    .filter(veh => veh.mileage < 100_000)
+                    .map(n => n.makeAndModel);
+
+                expect(lowMileageVehicles).toEqual(['Toyota Prius', 'Ford Explorer']);
+            });
+
+            describe('methods that produce a single (scalar) value', () => {
+                it('has methods that check the membership of the arrary', () => {
+                    expect(numbers.some(n => n > 8)).toBe(true);
+                    expect(numbers.every(formatters.isEven)).toBe(false);
+                });
+
+                it('has reduce', () => {
+                    expect(numbers.reduce((prev, next) => prev + next)).toBe(45);
+                    expect(numbers.reduce((prev, next) => prev + next, 55)).toBe(100);
+                });
+            });
+        });
     });
 });
