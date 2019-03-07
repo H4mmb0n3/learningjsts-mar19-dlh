@@ -12,4 +12,9 @@ export function isEven(n: number): boolean {
     return n % 2 === 0;
 }
 
+//figure out how to make this work in the map?
+export function doubler(n: number): number {
+    return n * 2;
+}
+
 export const PI = 3.1415; 

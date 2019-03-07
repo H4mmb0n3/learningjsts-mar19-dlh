@@ -133,6 +133,49 @@ describe('functions', () => {
                     expect(numbers.reduce((prev, next) => prev + next, 55)).toBe(100);
                 });
             });
+
+            describe('a demo', () => {
+                it('using reduce for something "real"', () => {
+                    interface Vehicle {
+                        vin: string;
+                        makeAndModel: string;
+                        mileage: number;
+                    }
+                    const vehicles: Vehicle[] = [
+                        { vin: '9999', makeAndModel: 'Chevy Tahoe', mileage: 182000 },
+                        { vin: 'aka92', makeAndModel: 'Toyota Prius', mileage: 89999 },
+                        { vin: 'kduwi', makeAndModel: 'Ford Explorer', mileage: 99998 }
+                    ];
+
+                    interface HighestMileageVehicle {
+                        vin: string;
+                        mileage: number;
+                    }
+
+                    const seed: HighestMileageVehicle = {
+                        vin: null,
+                        mileage: -1
+                    };
+
+                    const answer = vehicles.reduce((p, n) => {
+                        if (n.mileage > p.mileage) {
+                            return {
+                                vin: n.vin,
+                                mileage: n.mileage
+                            };
+                        } else {
+                            return p
+                        }
+
+                    }, seed);
+
+                    expect(answer).toEqual({
+                        vin: '9999',
+                        mileage: 182000
+                    });
+                });
+
+
+            });
         });
     });
-});
